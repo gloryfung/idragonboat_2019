@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="LeaveProcess" name="请假流程" isExecutable="true">
+    <startEvent id="startevent" name="开始"></startEvent>
+    <userTask id="submitForm" name="填写申请请假">
+      <extensionElements>
+        <activiti:formProperty id="message" name="申请信息" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name" name="申请人姓名" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="submitTime" name="提交时间" type="date" datePattern="yyyy-MM-dd HH：mm：ss" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent" targetRef="submitForm"></sequenceFlow>
+    <exclusiveGateway id="decideSubmit" name="提交或取消"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="submitForm" targetRef="decideSubmit"></sequenceFlow>
+    <userTask id="ZG_approve" name="部门主管审批">
+      <extensionElements>
+        <activiti:formProperty id="ZGapprove" name="主管审批结果" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="ZGmessage" name="主管备注" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="decideSubmit" targetRef="ZG_approve">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operationType=="submit"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="decideZGapprove" name="主管审批校验"></exclusiveGateway>
+    <sequenceFlow id="flow14" sourceRef="ZG_approve" targetRef="decideZGapprove"></sequenceFlow>
+    <userTask id="ZJL_approve" name="总经理审批">
+      <extensionElements>
+        <activiti:formProperty id="ZJLapprove" name="总经理审批结果" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="ZJLmessage" name="总经理审批备注"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow15" sourceRef="decideZGapprove" targetRef="ZJL_approve">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operationType=="ZGapprove"}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endEventCancel" name="取消"></endEvent>
+    <sequenceFlow id="flow17" sourceRef="decideSubmit" targetRef="endEventCancel">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operationType=="cancel"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="decideZGapprove" targetRef="submitForm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operationType=="ZGrejuect"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="decideZJLapprove" name="总经理审批校验"></exclusiveGateway>
+    <sequenceFlow id="flow19" sourceRef="ZJL_approve" targetRef="decideZJLapprove"></sequenceFlow>
+    <endEvent id="endevent" name="结束"></endEvent>
+    <sequenceFlow id="flow20" sourceRef="decideZJLapprove" targetRef="endevent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${operationType=="ZJLapprove"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="decideZJLapprove" targetRef="submitForm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[2${operationType=="ZJLreject"}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_LeaveProcess">
+    <bpmndi:BPMNPlane bpmnElement="LeaveProcess" id="BPMNPlane_LeaveProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
+        <omgdc:Bounds height="91.0" width="101.0" x="120.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="submitForm" id="BPMNShape_submitForm">
+        <omgdc:Bounds height="55.0" width="105.0" x="266.0" y="208.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideSubmit" id="BPMNShape_decideSubmit">
+        <omgdc:Bounds height="40.0" width="40.0" x="416.0" y="216.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ZG_approve" id="BPMNShape_ZG_approve">
+        <omgdc:Bounds height="55.0" width="105.0" x="501.0" y="209.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideZGapprove" id="BPMNShape_decideZGapprove">
+        <omgdc:Bounds height="40.0" width="40.0" x="651.0" y="217.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ZJL_approve" id="BPMNShape_ZJL_approve">
+        <omgdc:Bounds height="55.0" width="105.0" x="736.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEventCancel" id="BPMNShape_endEventCancel">
+        <omgdc:Bounds height="35.0" width="35.0" x="419.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideZJLapprove" id="BPMNShape_decideZJLapprove">
+        <omgdc:Bounds height="40.0" width="40.0" x="886.0" y="218.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent" id="BPMNShape_endevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="971.0" y="221.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="221.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="266.0" y="235.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="371.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="416.0" y="236.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="456.0" y="236.0"></omgdi:waypoint>
+        <omgdi:waypoint x="501.0" y="236.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="606.0" y="236.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="691.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="736.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="436.0" y="256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="436.0" y="340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="671.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="318.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="318.0" y="208.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="841.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="886.0" y="238.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="926.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="971.0" y="238.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="906.0" y="258.0"></omgdi:waypoint>
+        <omgdi:waypoint x="905.0" y="433.0"></omgdi:waypoint>
+        <omgdi:waypoint x="318.0" y="433.0"></omgdi:waypoint>
+        <omgdi:waypoint x="318.0" y="263.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
