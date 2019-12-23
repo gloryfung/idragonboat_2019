@@ -1,3 +1,0 @@
-0:0:0:0:0:0:0:1 - - [09/Sep/2019:00:01:48 +0800] "GET /getUserOptional/2222 HTTP/1.1" 200 28 http-bio-8080-exec-3 124087
-0:0:0:0:0:0:0:1 - - [09/Sep/2019:00:02:19 +0800] "GET /getUserOptional/2222 HTTP/1.1" 200 28 http-bio-8080-exec-4 10856
-0:0:0:0:0:0:0:1 - - [09/Sep/2019:00:02:45 +0800] "GET /findUserInfo/2222 HTTP/1.1" 200 - http-bio-8080-exec-6 2189

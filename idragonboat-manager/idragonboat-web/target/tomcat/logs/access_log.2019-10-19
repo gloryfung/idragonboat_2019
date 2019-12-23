@@ -1,9 +1,0 @@
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:18:17:31 +0800] "GET /findUserInfo/2222 HTTP/1.1" 200 - http-bio-8080-exec-1 19884
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:18:17:31 +0800] "GET /favicon.ico HTTP/1.1" 404 949 http-bio-8080-exec-3 12
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:18:17:53 +0800] "GET /findUserInfo/2 HTTP/1.1" 200 38 http-bio-8080-exec-5 8624
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:19:13:01 +0800] "GET /findUserInfo/2 HTTP/1.1" 200 38 http-bio-8080-exec-10 2484
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:19:16:34 +0800] "GET /findUserInfo/2 HTTP/1.1" 200 38 http-bio-8080-exec-1 27518
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:19:40:31 +0800] "GET /findUserInfo/2?callback=_jsonp8m1eg20v3q7 HTTP/1.1" 200 38 http-bio-8080-exec-1 950
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:19:40:52 +0800] "GET /findUserInfo/2?callback=_jsonpp4px07u4bxm HTTP/1.1" 200 38 http-bio-8080-exec-3 6014
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:19:43:01 +0800] "GET /findUserInfo/2?callback=_jsonptjxya5ius8n HTTP/1.1" 200 38 http-bio-8080-exec-5 18
-0:0:0:0:0:0:0:1 - - [19/Oct/2019:19:47:42 +0800] "GET /findUserInfo/2?callback=_jsonp78yhjm0t1yo HTTP/1.1" 200 38 http-bio-8080-exec-7 7

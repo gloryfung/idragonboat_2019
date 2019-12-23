@@ -1,5 +1,0 @@
-0:0:0:0:0:0:0:1 - - [23/Aug/2019:00:51:15 +0800] "POST //handle?type=1 HTTP/1.1" 500 5724 http-bio-8080-exec-4 222560
-0:0:0:0:0:0:0:1 - - [23/Aug/2019:01:19:26 +0800] "POST //handle?type=1 HTTP/1.1" 500 5724 http-bio-8080-exec-1 20140
-0:0:0:0:0:0:0:1 - - [23/Aug/2019:01:29:40 +0800] "POST //handle?type=1 HTTP/1.1" 200 - http-bio-8080-exec-1 28757
-0:0:0:0:0:0:0:1 - - [23/Aug/2019:01:30:46 +0800] "POST //handle?type=1 HTTP/1.1" 200 - http-bio-8080-exec-2 37567
-0:0:0:0:0:0:0:1 - - [23/Aug/2019:01:31:03 +0800] "POST //handle?type=1 HTTP/1.1" 200 - http-bio-8080-exec-3 5
