@@ -36,8 +36,10 @@ public class MybatisMapperDynamicLoader implements InitializingBean, Application
     public void afterPropertiesSet() throws Exception {
         try {
             scanner = new Scanner();
+            //定时器
             new Timer(true).schedule(new TimerTask() {
                 public void run() {
+                	System.out.println("定时任务MybatisMapperDynamicLoader");
                     try {
                         if (scanner.isChanged()) {
                             System.out.println("load mapper.xml");
@@ -47,7 +49,7 @@ public class MybatisMapperDynamicLoader implements InitializingBean, Application
                         e.printStackTrace();
                     }
                 }
-            }, 10 * 1000, 5 * 1000);
+            }, 10 * 1000, 120 * 1000);  //120秒刷新一次
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -56,6 +58,7 @@ public class MybatisMapperDynamicLoader implements InitializingBean, Application
     @SuppressWarnings("unchecked")
     class Scanner {
         private static final String XML_RESOURCE_PATTERN = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "**/*Sql.xml";
+//    	private static final String XML_RESOURCE_PATTERN = "D:/Installation/iglory/idragonboat_eclipse/idragonboat_2019/idragonboat-manager/idragonboat-dao/target/classes/" + "**/*.xml";
         private final ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         public Scanner() throws IOException {
             Resource[] resources = findResource();
@@ -102,9 +105,12 @@ public class MybatisMapperDynamicLoader implements InitializingBean, Application
         }
         public boolean isChanged() throws IOException {
             boolean isChanged = false;
+            System.out.println("进入isChanged方法");
             for (Resource resource : findResource()) {
                 String key = resource.getURI().toString();
+                System.out.println("key为:" + key);
                 String value = getMd(resource);
+                System.out.println("value为:" + value);
                 if (!value.equals(mappers.get(key))) {
                     isChanged = true;
                     mappers.put(key, value);
@@ -113,6 +119,7 @@ public class MybatisMapperDynamicLoader implements InitializingBean, Application
             return isChanged;
         }
         private Resource[] findResource() throws IOException {
+        	System.out.println("XML_RESOURCE_PATTERN:" + XML_RESOURCE_PATTERN);
             return resourcePatternResolver.getResources(XML_RESOURCE_PATTERN);
         }
         private String getMd(Resource resource) throws IOException {

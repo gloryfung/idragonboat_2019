@@ -19,5 +19,5 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	<!-- <bean id="MybatisMapperDynamicLoader" class="com.iglory.utils.mybatis.MybatisMapperDynamicLoader"></bean>  -->
+	<bean id="MybatisMapperDynamicLoader" class="com.iglory.utils.mybatis.MybatisMapperDynamicLoader"></bean>
 </beans>
