@@ -1,0 +1,7 @@
+html .box,
+body .box {
+  width: 220px;
+  height: 120px;
+  background: url("../images/飘渺孤鸿影.jpg");
+  background-size: cover;
+}
