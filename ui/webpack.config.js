@@ -30,6 +30,7 @@ module.exports= {
             {test : /\.(jpg|png|gif|bmp|jpeg)$/, use : 'url-loader'} ,
             //处理.vue文件的loader
             {test : /\.vue$/, use : 'vue-loader'},
+            {test:/.(png|gif|jpg|svg|ttf)$/, use:['file-loader']}
         ]
     }
 }
